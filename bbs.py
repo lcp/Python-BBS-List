@@ -8,14 +8,21 @@ sites = [
 ["PTT",     "ssh",    "bbs@ptt.cc"],
 ["PTT2",    "ssh",    "bbs@ptt2.cc"],
 ["SayYa",   "telnet", "bbs.sayya.org"],
-["MathBBS", "telnet", "140.112.50.3"]
+["MathBBS", "telnet", "bbs.math.ntu.edu.tw"]
 ];
 
 def execute_cmd(cmd_string):
-        system("clear")
-	a = system(cmd_string)
+	system("clear");
+	a = system(cmd_string);
+#        print ""
+#        if a == 0:
+#		print "Command executed correctly"
+#        else:
+#                print "Command terminated with error"
+#        raw_input("Press enter")
+#	print ""
 
-x = 0
+x = 0;
 option = 0;
 screen = curses.initscr();
 
@@ -31,6 +38,10 @@ while x != ord('q') and x != ord('Q'):
 			screen.addstr(start_row+i, 4, print_str);
 
 	screen.addstr( start_row+i+2, 4, "Q - Exit");
+	screen.addstr( start_row+15, 4, "Option: "+str(option) );
+	screen.addstr( start_row+16, 4, "key: "+str(x) );
+	screen.addstr( start_row+17, 4, "key_up  : "+str(curses.KEY_UP) );
+	screen.addstr( start_row+18, 4, "key_down: "+str(curses.KEY_DOWN) );
 
 	print_str = str(option+1) + " - " + sites[option][0];
 	screen.addstr(start_row+option, 4, print_str, curses.A_REVERSE);
@@ -48,7 +59,7 @@ while x != ord('q') and x != ord('Q'):
 		screen.clear();
 		curses.endwin();
 		execute_cmd( sites[i][1] + " " +  sites[i][2] );
-		break;
+		#break;
 
 	if option < 0:
 		option = len(sites)-1;
